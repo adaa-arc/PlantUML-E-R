@@ -1,0 +1,165 @@
+@startchen "图4.3.8 数据库全局E-R图"
+
+skinparam defaultFontSize 30
+skinparam dpi 360
+top to bottom direction
+
+
+<style>
+chenEntity {
+  BackGroundColor white
+  BorderColor black
+  FontSize 30
+}
+chenRelationship {
+  BackGroundColor white
+  BorderColor black
+  FontSize 30
+}
+</style>
+
+top to bottom direction
+ 
+entity "    \n    用户    \n    " as User {
+}
+entity "  好友  \n  关系  " as Friend {
+}
+entity "  好友  \n  申请  " as FriendRequest {
+}
+entity "  私信  \n  消息  " as Message {
+}
+entity "  对战  \n  挑战  " as Challenge {
+}
+entity "  系统  \n  通知  " as Notification {
+}
+entity "管理员" as Admin {
+}
+
+relationship "拥有好友关系" as R_User_FriendOwner {
+}
+relationship "作为好友" as R_User_FriendPeer {
+}
+
+relationship "发起申请" as R_User_FriendRequestFrom {
+}
+relationship "接收申请" as R_User_FriendRequestTo {
+}
+
+relationship "发送消息" as R_User_MessageFrom {
+}
+relationship "接收消息" as R_User_MessageTo {
+}
+
+relationship "发起挑战" as R_User_ChallengeFrom {
+}
+relationship "接收挑战" as R_User_ChallengeTo {
+}
+
+relationship "接收通知" as R_User_Notification {
+}
+
+relationship "管理用户" as R_Admin_User {
+}
+relationship "发布通知" as R_Admin_Notification {
+}
+
+R_User_FriendOwner -1- User
+Friend -N- R_User_FriendOwner
+
+R_User_FriendRequestTo -1- User
+FriendRequest -N- R_User_FriendRequestTo
+
+R_User_FriendRequestFrom -1- User
+FriendRequest -N- R_User_FriendRequestFrom
+
+R_User_FriendPeer -1- User
+Friend -N- R_User_FriendPeer
+
+User -1- R_User_MessageFrom
+R_User_MessageFrom -N- Message
+
+User -1- R_User_MessageTo
+R_User_MessageTo -N- Message
+
+User -1- R_User_ChallengeFrom
+R_User_ChallengeFrom -N- Challenge
+
+User -1- R_User_ChallengeTo
+R_User_ChallengeTo -N- Challenge
+
+User -1- R_User_Notification
+R_User_Notification -N- Notification
+
+Admin -1- R_Admin_User
+R_Admin_User -N- User
+
+Admin -1- R_Admin_Notification
+R_Admin_Notification -N- Notification
+
+@endchen
+
+@startchen "图4.3.8 数据库全局E-R图(游戏化与排行榜)"
+
+skinparam defaultFontSize 30
+skinparam dpi 360
+
+<style>
+chenEntity {
+  BackGroundColor white
+  BorderColor black
+  FontSize 30
+}
+chenRelationship {
+  BackGroundColor white
+  BorderColor black
+  FontSize 30
+}
+</style>
+
+top to bottom direction
+
+entity "用户" as User {
+}
+entity "对局记录" as GameRecord {
+}
+entity "成就定义" as Achievement {
+}
+entity "用户成就" as UserAchievement {
+}
+entity "积分流水" as PointLog {
+}
+entity "排行榜快照" as LeaderboardSnapshot {
+}
+
+relationship "黑方参与" as R_User_GameBlack {
+}
+relationship "白方参与" as R_User_GameWhite {
+}
+relationship "产生流水" as R_User_PointLog {
+}
+relationship "生成快照" as R_User_Leaderboard {
+}
+relationship "解锁成就" as R_User_UserAchievement {
+}
+relationship "成就被解锁" as R_Achievement_UserAchievement {
+}
+
+User -1- R_User_GameBlack
+R_User_GameBlack -N- GameRecord
+
+User -1- R_User_GameWhite
+R_User_GameWhite -N- GameRecord
+
+User -1- R_User_PointLog
+R_User_PointLog -N- PointLog
+
+User -1- R_User_Leaderboard
+R_User_Leaderboard -N- LeaderboardSnapshot
+
+User -1- R_User_UserAchievement
+R_User_UserAchievement -N- UserAchievement
+
+Achievement -1- R_Achievement_UserAchievement
+R_Achievement_UserAchievement -N- UserAchievement
+
+@endchen
